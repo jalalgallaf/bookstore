@@ -2,9 +2,11 @@ package com.jalaldev.bookstore.bookstore.controllers;
 
 import com.jalaldev.bookstore.bookstore.model.Author;
 import com.jalaldev.bookstore.bookstore.service.AuthorService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.auditing.AuditingHandler;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +29,7 @@ public class authorController {
     }
 
     @PostMapping("/authors")
-    ResponseEntity<Author>addAuthor(@RequestBody Author author){
+    ResponseEntity<Author>addAuthor(@Valid @RequestBody Author author){
         return ResponseEntity.ok(authorService.addAuthor(author));
     }
 

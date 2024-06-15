@@ -2,6 +2,7 @@ package com.jalaldev.bookstore.bookstore.controllers;
 
 import com.jalaldev.bookstore.bookstore.model.Book;
 import com.jalaldev.bookstore.bookstore.service.BookService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    ResponseEntity<Book> addBook(@RequestBody Book book){
+    ResponseEntity<Book> addBook(@Valid @RequestBody Book book){
         return ResponseEntity.ok(bookService.addBook(book));
     }
 

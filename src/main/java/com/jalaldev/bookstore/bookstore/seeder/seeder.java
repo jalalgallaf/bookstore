@@ -37,7 +37,11 @@ public class seeder implements CommandLineRunner {
     private Author generateFakeAuthor() {
         Author author = new Author();
         author.setName(faker.book().author());
-        author.setBiography(faker.lorem().paragraph());
+        String biography = faker.lorem().paragraph(50);
+        if (biography.length() > 100) {
+            biography = biography.substring(0, 100);
+        }
+        author.setBiography(biography);
         return author;
     }
 
