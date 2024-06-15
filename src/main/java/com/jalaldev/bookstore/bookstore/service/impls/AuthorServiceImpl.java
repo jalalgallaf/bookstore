@@ -1,7 +1,8 @@
 package com.jalaldev.bookstore.bookstore.service.impls;
 
 import com.jalaldev.bookstore.bookstore.model.Author;
-import com.jalaldev.bookstore.bookstore.repositroy.AuthorRepository;
+import com.jalaldev.bookstore.bookstore.model.Book;
+import com.jalaldev.bookstore.bookstore.repositroy.*;
 import com.jalaldev.bookstore.bookstore.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.List;
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
+    private final BookRepository bookRepository;
 
     @Override
     public List<Author> getAllAuthors() {
@@ -36,6 +38,10 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void deleteAuthor(Author author) {
+        var books = bookRepository.findBookByAuthor(author);
+        for(Book book: books){
+            bookRepository.delete(book);
+        }
         authorRepository.delete(author);
     }
 }
