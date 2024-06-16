@@ -1,5 +1,6 @@
 package com.jalaldev.bookstore.bookstore.service.impls;
 
+import com.jalaldev.bookstore.bookstore.DTO.BookDTO;
 import com.jalaldev.bookstore.bookstore.model.Book;
 import com.jalaldev.bookstore.bookstore.service.BookService;
 import lombok.RequiredArgsConstructor;
@@ -16,18 +17,19 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public List<Book> getAllBooks() {
-        return bookRepository.findAll();
+    public List<BookDTO> getAllBooks() {
+        List<Book> books = bookRepository.findAll();
+        return books.stream().map(this::tobookDTO).toList();
     }
 
     @Override
-    public Book getBookById(Long id) {
-        return  bookRepository.findBookById(id);
+    public BookDTO getBookById(Long id) {
+        return tobookDTO(bookRepository.findBookById(id));
     }
 
     @Override
-    public Book addBook(Book book) {
-       return bookRepository.save(book);
+    public BookDTO addBook(Book book) {
+        return tobookDTO(bookRepository.save(book));
     }
 
     @Override
@@ -39,4 +41,16 @@ public class BookServiceImpl implements BookService {
     public void deleteBook(Book book) {
         bookRepository.delete(book);
     }
+
+    private BookDTO tobookDTO(Book book){
+        return BookDTO.builder()
+                .id(book.getId())
+                .isbn(book.getIsbn())
+                .title(book.getTitle())
+                .author(book.getAuthor())
+                .publishDate(book.getPublishDate())
+                .build();
+    }
+
+
 }

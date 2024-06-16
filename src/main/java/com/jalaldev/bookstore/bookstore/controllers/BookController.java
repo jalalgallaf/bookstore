@@ -1,5 +1,6 @@
 package com.jalaldev.bookstore.bookstore.controllers;
 
+import com.jalaldev.bookstore.bookstore.DTO.BookDTO;
 import com.jalaldev.bookstore.bookstore.model.Book;
 import com.jalaldev.bookstore.bookstore.service.BookService;
 import jakarta.validation.Valid;
@@ -16,18 +17,18 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping("/books")
-    ResponseEntity<List<Book>> getAllBooks(){
+    ResponseEntity<List<BookDTO>> getAllBooks(){
         var books = bookService.getAllBooks();
         return ResponseEntity.ok(books);
     }
 
     @GetMapping("/books/{bookID}")
-    ResponseEntity<Book>getBook(@PathVariable Long bookID){
+    ResponseEntity<BookDTO>getBook(@PathVariable Long bookID){
         return ResponseEntity.ok(bookService.getBookById(bookID));
     }
 
     @PostMapping("/books")
-    ResponseEntity<Book> addBook(@Valid @RequestBody Book book){
+    ResponseEntity<BookDTO> addBook(@Valid @RequestBody Book book){
         return ResponseEntity.ok(bookService.addBook(book));
     }
 

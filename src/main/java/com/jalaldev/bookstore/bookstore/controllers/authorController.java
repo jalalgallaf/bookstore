@@ -1,5 +1,6 @@
 package com.jalaldev.bookstore.bookstore.controllers;
 
+import com.jalaldev.bookstore.bookstore.DTO.AuthorDTO;
 import com.jalaldev.bookstore.bookstore.model.Author;
 import com.jalaldev.bookstore.bookstore.service.AuthorService;
 import jakarta.validation.Valid;
@@ -19,17 +20,17 @@ public class authorController {
     private final AuthorService authorService;
 
     @GetMapping("/authors")
-    ResponseEntity<List<Author>> getAllAuthors(){
+    ResponseEntity<List<AuthorDTO>> getAllAuthors(){
         return ResponseEntity.ok(authorService.getAllAuthors());
     }
 
     @GetMapping("/authors/{authorID}")
-    ResponseEntity<Author> getAuthor(@PathVariable Long authorID){
+    ResponseEntity<AuthorDTO> getAuthor(@PathVariable Long authorID){
         return ResponseEntity.ok(authorService.getAuthorByID(authorID));
     }
 
     @PostMapping("/authors")
-    ResponseEntity<Author>addAuthor(@Valid @RequestBody Author author){
+    ResponseEntity<AuthorDTO>addAuthor(@Valid @RequestBody Author author){
         return ResponseEntity.ok(authorService.addAuthor(author));
     }
 
